@@ -18,7 +18,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetWindowTitle("EquirectangularCompositeApp");
+	ofSetWindowTitle("ofApp");
 
 	ofSetFrameRate(60);
 	ofSetVerticalSync(true);
