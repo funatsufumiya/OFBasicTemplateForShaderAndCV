@@ -3,9 +3,9 @@
 #include "ofMain.h"
 #include "ofxImGui.h"
 #include "ofxOpenCv.h"
-#include "ofxCv.h"
 #include "ofxSimpleOsc.h"
 #include "ofxAsync.h"
+#include "ofxCereal.h"
 
 // OF default gl setting
 #define MY_GL_MAJOR 2
@@ -26,6 +26,20 @@
 class ofApp : public ofBaseApp{
 
 	public:
+		struct OscSettings {
+			int receiver_port = 7000;
+			int sender_port = 7001;
+			string sender_host = "localhost";
+
+			OFX_CEREAL_DEFINE(
+				CEREAL_NVP(receiver_port),
+				CEREAL_NVP(sender_port),
+				CEREAL_NVP(sender_host)
+			)
+		};
+
+		OscSettings oscSettings;
+
 		void setup();
 		void update();
 		void draw();

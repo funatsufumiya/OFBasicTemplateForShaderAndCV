@@ -24,7 +24,15 @@ void ofApp::setup(){
 	ofSetVerticalSync(true);
 	ofLogToConsole();
 
+	ofDisableArbTex();
+
 	loadSettings();
+
+	oscReceiver.setup(oscSettings.receiver_port, [&](const ofxOscMessage& msg) {
+		oscReceived(msg);
+	});
+	oscSender.setup(oscSettings.sender_host, oscSettings.sender_port);
+
 
 	ofLog() << "Vendor :" << glGetString(GL_VENDOR);
 	ofLog() << "GPU : " << glGetString(GL_RENDERER);
@@ -110,6 +118,54 @@ void ofApp::draw(){
 	}
 	ImGui::End();
 
+	ImGui::Begin("osc");
+	{
+		ImGui::Text("* restart required");
+		ImGui::InputInt("receiver_port", &oscSettings.receiver_port);
+		ImGui::InputInt("sender_port", &oscSettings.sender_port);
+		{
+			const int buf_len = 256;
+			char buf[buf_len];
+			strcpy(buf, oscSettings.sender_host.c_str());
+			if (ImGui::InputText("sender_host", buf, buf_len)) {
+				oscSettings.sender_host = buf;
+			}
+		}
+		//{
+		//	const int buf_len = 256;
+		//	char buf[buf_len];
+		//	strcpy(buf, oscSettings.receiver_addr_prefix.c_str());
+		//	if (ImGui::InputText("receiver_addr_prefix", buf, buf_len)) {
+		//		oscSettings.receiver_addr_prefix = buf;
+		//	}
+		//}
+		//{
+		//	const int buf_len = 256;
+		//	char buf[buf_len];
+		//	strcpy(buf, oscSettings.sender_addr_prefix.c_str());
+		//	if (ImGui::InputText("sender_addr_prefix", buf, buf_len)) {
+		//		oscSettings.sender_addr_prefix = buf;
+		//	}
+		//}
+
+		static int savedf = 0;
+		if (ImGui::Button("save")) {
+			saveSettings();
+			savedf = 120;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("load")) {
+			loadSettings();
+		}
+		if (savedf > 0) {
+			ImGui::SameLine();
+			ImGui::Text(" saved!");
+			--savedf;
+		}
+	}
+	ImGui::End();
+
+
 	gui.end();
 }
 
@@ -172,11 +228,13 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::loadSettings()
 {
+	ofxCereal::loadJson("osc_settings.json", oscSettings);
 }
 
 //--------------------------------------------------------------
 void ofApp::saveSettings()
 {
+	ofxCereal::saveJson("osc_settings.json", oscSettings);
 }
 
 
