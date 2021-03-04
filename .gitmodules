@@ -1,0 +1,19 @@
+[submodule "addons/ofxCv"]
+	path = addons/ofxCv
+	url = https://github.com/kylemcdonald/ofxCv
+[submodule "addons/ofxPubSubOsc"]
+	path = addons/ofxPubSubOsc
+	url = https://github.com/2bbb/ofxPubSubOsc
+[submodule "addons/ofxImGui"]
+	path = addons/ofxImGui
+	url = https://github.com/funatsufumiya/ofxImGui
+	branch = v1.75
+[submodule "addons/ofxSimpleOsc"]
+	path = addons/ofxSimpleOsc
+	url = https://github.com/funatsufumiya/ofxSimpleOsc
+[submodule "addons/ofxAsync"]
+	path = addons/ofxAsync
+	url = https://github.com/funatsufumiya/ofxAsync
+[submodule "addons/ofxCereal"]
+	path = addons/ofxCereal
+	url = https://github.com/hanasaan/ofxCereal
