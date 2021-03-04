@@ -67,11 +67,14 @@ void ofApp::setup(){
 		}
 	);
 
-#ifndef GLSL150
-	shader.setupShaderFromSource(GL_VERTEX_SHADER, passThroughVert);
-#endif
+	if (ofIsGLProgrammableRenderer()) {
+		shader.setupShaderFromSource(GL_VERTEX_SHADER, passThroughVert);
+	}
 	shader.setupShaderFromSource(GL_FRAGMENT_SHADER, basicShaderFrag);
-	shader.bindDefaults();
+
+	if (ofIsGLProgrammableRenderer()) {
+		shader.bindDefaults();
+	}
 	shader.linkProgram();
 
 	gui.setup();
