@@ -107,8 +107,9 @@ void ofApp::draw(){
 			--savedf;
 		}
 
-		ImGui::End();
 	}
+	ImGui::End();
+
 	gui.end();
 }
 
