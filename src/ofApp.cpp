@@ -174,6 +174,12 @@ void ofApp::draw(){
 
 void ofApp::oscReceived(const ofxOscMessage & msg)
 {
+	ofxSimpleOsc::filter(msg)
+		.when("/test", [&]() {
+			ofLog() << "/test received";
+			ofxSimpleOsc::logger.log(msg, true);
+		})
+		.else_show_warning();
 }
 
 //--------------------------------------------------------------
