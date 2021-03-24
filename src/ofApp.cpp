@@ -33,6 +33,7 @@ void ofApp::setup(){
 	});
 	oscSender.setup(oscSettings.sender_host, oscSettings.sender_port);
 
+	oscReceiver.setOscLogEnabled(false);
 
 	ofLog() << "Vendor :" << glGetString(GL_VENDOR);
 	ofLog() << "GPU : " << glGetString(GL_RENDERER);
